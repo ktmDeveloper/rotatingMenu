@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Rotating Menu</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <style rel="stylesheet">
+      .revolve-container {
+        position: relative;
+      }
+      
+      .revolve {
+        height: 500px;
+        width: 500px;
+        position: absolute;
+        perspective: 1000px;
+        transform: translateX(50%);
+      }
+      
+      .revolve:hover .revolve--features {
+        animation-play-state: paused!important
+      }
+      
+      .revolve:hover .revolve--feature {
+        animation-play-state: paused!important
+      }
+      
+      .revolve--feature {
+        animation: reverseAnimation 60s linear infinite;
+        background: #39CCCC;
+        border-radius: 50%;
+        cursor: pointer;
+        height: 10%;
+        opacity: 0;
+        position: absolute;
+        text-align: center;
+        width: 10%;
+      }
+      
+      .revolve--feature .label {
+        margin: 9px;
+      }
+      
+      .revolve--feature .fa {
+        color: white;
+      }
+      
+      .revolve--feature:hover {
+        background: #fff;
+        color: #000;
+        transform: scale(1.1);
+        -webkit-box-shadow: 0px 0px 22px 8px rgba(0, 0, 0, 0.6);
+        box-shadow: 0px 0px 22px 8px rgba(0, 0, 0, 0.6);
+      }
+      
+      .revolve--feature:hover .fa {
+        color: #39CCCC;
+      }
+      
+      .revolve--features {
+        animation: rotateAnimation 60s linear infinite;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%
+      }
+      
+      .revolve--orbit {
+        border-radius: 50%;
+        border: solid 1px #39CCCC;
+        height: 50%;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%
+      }
+      
+      @keyframes rotateAnimation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      
+      @keyframes reverseAnimation {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(-360deg);
+        }
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="revolve-container">
+
+
+      <div class="revolve">
+        <div class="revolve--orbits">
+          <div class="revolve--orbit"></div>
+        </div>
+        <div class="revolve--features">
+
+          <div class="revolve--feature">
+            <div class="label">
+              <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+          <!-- end revolve--feature -->
+
+          <div class="revolve--feature">
+            <div class="label">
+              <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+          <!-- end revolve--feature -->
+
+          <div class="revolve--feature">
+            <div class="label">
+              <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+          <!-- end revolve--feature -->
+
+          <div class="revolve--feature">
+            <div class="label">
+              <i class="fa fa-google fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+          <!-- end revolve--feature -->
+
+          <div class="revolve--feature">
+            <div class="label">
+              <i class="fa fa-linkedin fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+          <!-- end revolve--feature -->
+
+          <div class="revolve--feature">
+            <div class="label">
+              <i class="fa fa-chrome fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+          <!-- end revolve--feature -->
+
+
+        </div>
+        <!-- end revolve--features -->
+      </div>
+      <!-- end revolve -->
+
+    </div>
+    <!-- end revolve-container -->
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <script type="application/javascript">
+      $.fn.slowEach = function(callback, interval) {
+        var array = this;
+        if (!array.length) return;
+        var i = 0;
+        next();
+
+        function next() {
+          if (callback.call(array[i], i, array[i]) !== false) {
+            if (++i < array.length) {
+              setTimeout(next, interval);
+            }
+          }
+        }
+      }
+
+      function anima(scale, speed, easing) {
+        var container = $('.revolve');
+        var radius = $('.revolve').width() / scale;
+        var features = $('.revolve--feature');
+        var width = container.width();
+        var height = container.height();
+        var angle = 0;
+        var step = (2 * Math.PI) / features.length;
+        var o = (easing == 'out') ? 0 : 1;
+        features.slowEach(function() {
+          var x = Math.round(width / 2 + radius * Math.cos(angle) - $(this).width() / 2);
+          var y = Math.round(height / 2 + radius * Math.sin(angle) - $(this).height() / 2);
+          $(this).animate({
+            left: x + 'px',
+            top: y + 'px',
+            opacity: o
+          }, speed);
+          angle += step;
+        }, speed);
+      }
+
+
+      anima(2.35, 2, 3)
+
+    </script>
+  </body>
+
+</html>
