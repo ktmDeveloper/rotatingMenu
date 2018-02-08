@@ -1,5 +1,4 @@
 
 ## Revolving Menu
 
-### Working Link 
-    <https://ktmdeveloper.github.io/rotatingMenu/>
+### Working Link : https://ktmdeveloper.github.io/rotatingMenu/
