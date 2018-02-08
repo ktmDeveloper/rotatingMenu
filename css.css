@@ -5,9 +5,8 @@
       .revolve {
         height: 500px;
         width: 500px;
-        position: absolute;
         perspective: 1000px;
-        transform: translateX(50%);
+        margin: 0 auto;
       }
       
       .revolve:hover .revolve--features {
